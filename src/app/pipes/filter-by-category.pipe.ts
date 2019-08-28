@@ -5,7 +5,6 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class FilterByCategoryPipe implements PipeTransform {
   transform(products: any[], args: any): any {
-    console.log(products);
     if (args) {
       return products.filter(p => p.category === args);
     } else {

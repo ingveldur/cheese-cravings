@@ -70,7 +70,11 @@
       <ng-template #contentBlock>
         <ng-container
           *ngIf="
-            (productsInCateogory | filterByCategory: categoryFilter).length > 0;
+            (
+              productsInCateogory
+              | filterByCategory: categoryFilter
+              | filterByPriceRange: minValue:maxValue
+            ).length > 0;
             else noProductsBlock
           "
         >
@@ -79,6 +83,7 @@
               *ngFor="
                 let product of productsInCateogory
                   | filterByCategory: categoryFilter
+                  | filterByPriceRange: minValue:maxValue
               "
             >
               <div class="col">

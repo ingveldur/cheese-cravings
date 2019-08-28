@@ -20,8 +20,9 @@ export class CategoryComponent implements OnInit {
   // Filters
   public categoryFilter = "";
 
-  minValue = 100;
-  maxValue = 400;
+  minValue = 0;
+  maxValue = 400; // todo get price range from products...
+
   options: Options = {
     floor: 0,
     ceil: 500,

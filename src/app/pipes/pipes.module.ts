@@ -1,10 +1,11 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FilterByCategoryPipe } from "./filter-by-category.pipe";
+import { FilterByPriceRangePipe } from "./filter-by-price-range.pipe";
 
 @NgModule({
-  declarations: [FilterByCategoryPipe],
+  declarations: [FilterByCategoryPipe, FilterByPriceRangePipe],
   imports: [CommonModule],
-  exports: [FilterByCategoryPipe]
+  exports: [FilterByCategoryPipe, FilterByPriceRangePipe]
 })
 export class PipesModule {}
