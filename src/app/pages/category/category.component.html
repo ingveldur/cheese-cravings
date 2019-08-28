@@ -23,13 +23,71 @@
       </div>
     </div>
   </div>
-  <div class="category-content">
-    <div>
-      FILTERS
-    </div>
 
-    <div>
-      PRODUCTS
+  <div class="category-content">
+    <div class="category-content-filters">
+      <div class="category-content-filters-title">
+        Blue cheese.
+      </div>
+      <div class="category-content-filters-list">
+        <div class="category-content-filters-list-title">Types</div>
+        <ul>
+          <li>
+            Gorgonzola
+          </li>
+          <li>
+            Roquefort
+          </li>
+          <li>
+            Danish Blue
+          </li>
+          <li>
+            Shropshire Blue
+          </li>
+          <li>
+            Dragon's Breath Blue
+          </li>
+          <li>
+            Bleu du Vercors-Sassenage
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="category-content-products">
+      <div *ngIf="!loading; else loadingBlock">
+        <div class="row">
+          <div *ngFor="let product of productsInCateogory">
+            <div class="col">
+              <div class="product">
+                <div
+                  class="product-image"
+                  [ngStyle]="{
+                    'background-image':
+                      'url(' + product.fields.image.fields.file.url + ')'
+                  }"
+                ></div>
+                <div>
+                  <div class="product-title">
+                    {{ product.fields.name }}
+                  </div>
+                  <div class="product-price">
+                    {{ product.fields.price }}
+                    {{ product.fields.currency }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #loadingBlock>
+        <div class="catalog catalog--loading">
+          <span class="catalog__loading">
+            Loading products...
+          </span>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
