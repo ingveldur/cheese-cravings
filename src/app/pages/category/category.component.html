@@ -32,22 +32,35 @@
         Filters
         <img src="../assets/images/filter.svg" />
       </div>
-      <div class="category-content-filters-list">
-        <div class="category-content-filters-list-title">Types</div>
-        <ul *ngIf="categories.length > 0">
-          <div *ngFor="let category of categories">
-            <li (click)="filterByCategory(category.slug)">
-              <span
-                [ngClass]="
-                  category.slug === categoryFilter ? 'selectedFilter' : ''
-                "
-                >{{ category.title }}</span
-              >
-            </li>
-          </div>
-        </ul>
+      <div class="category-content-filters-filter">
+        <div class="category-content-filters-filter-title">Types</div>
+        <div class="category-content-filters-list">
+          <ul *ngIf="categories.length > 0">
+            <div *ngFor="let category of categories">
+              <li (click)="filterByCategory(category.slug)">
+                <span
+                  [ngClass]="
+                    category.slug === categoryFilter ? 'selectedFilter' : ''
+                  "
+                  >{{ category.title }}</span
+                >
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div class="category-content-filters-filter">
+        <div class="category-content-filters-filter-title">Price range</div>
+        <div class="category-content-filters-price-slider">
+          <ng5-slider
+            [(value)]="minValue"
+            [(highValue)]="maxValue"
+            [options]="options"
+          ></ng5-slider>
+        </div>
       </div>
     </div>
+
     <div class="category-content-products">
       <ng-container *ngIf="loading; else contentBlock">
         <div>

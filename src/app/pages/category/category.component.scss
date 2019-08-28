@@ -85,8 +85,8 @@
         }
       }
 
-      &-list {
-        margin: 16px auto 16px 24px;
+      &-filter {
+        margin: 32px auto 16px 24px;
 
         &-title {
           font-family: "Montserrat", sans-serif;
@@ -94,8 +94,11 @@
           font-size: 12px;
           line-height: 15px;
           margin-bottom: 16px;
+          text-decoration: underline;
         }
+      }
 
+      &-list {
         ul {
           padding-inline-start: 16px;
           li {
@@ -114,6 +117,10 @@
             }
           }
         }
+      }
+
+      &-price-slider {
+        width: 150px;
       }
     }
 
@@ -173,5 +180,32 @@
         }
       }
     }
+  }
+}
+
+// TODO move to seperate component
+
+::ng-deep {
+  .category-content-filters-price-slider
+    .ng5-slider.animate
+    .ng5-slider-pointer {
+    outline: none;
+  }
+  .category-content-filters-price-slider .ng5-slider .ng5-slider-bar {
+    height: 2px;
+  }
+
+  .category-content-filters-price-slider .ng5-slider .ng5-slider-pointer {
+    width: 12px;
+    height: 12px;
+    transform: translateY(70%);
+  }
+
+  .category-content-filters-price-slider .ng5-slider .ng5-slider-pointer:after {
+    display: none;
+  }
+
+  .category-content-filters-price-slider .ng5-slider .ng5-slider-bubble {
+    font-size: 8px;
   }
 }

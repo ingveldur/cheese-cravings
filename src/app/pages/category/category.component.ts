@@ -4,6 +4,7 @@ import * as _ from "lodash";
 import { Product } from "src/app/models/Product";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { switchMap } from "rxjs/operators";
+import { Options, LabelType } from "ng5-slider";
 
 @Component({
   selector: "app-category",
@@ -18,6 +19,22 @@ export class CategoryComponent implements OnInit {
 
   // Filters
   public categoryFilter = "";
+
+  minValue = 100;
+  maxValue = 400;
+  options: Options = {
+    floor: 0,
+    ceil: 500,
+    translate: (value: number): string => {
+      return "$" + value;
+    },
+    getSelectionBarColor: (): string => {
+      return "#DDCE9B";
+    },
+    getPointerColor: (): string => {
+      return "#DDCE9B";
+    }
+  };
 
   constructor(
     private route: ActivatedRoute,
