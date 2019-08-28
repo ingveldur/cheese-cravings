@@ -23,69 +23,77 @@
       </div>
     </div>
   </div>
-
   <div class="category-content">
     <div class="category-content-filters">
-      <div class="category-content-filters-title">
+      <div class="category-content-filters-category-name">
         Blue cheese.
+      </div>
+      <div class="category-content-filters-title">
+        Filters
+        <img src="../assets/images/filter.svg" />
       </div>
       <div class="category-content-filters-list">
         <div class="category-content-filters-list-title">Types</div>
-        <ul>
-          <li>
-            Gorgonzola
-          </li>
-          <li>
-            Roquefort
-          </li>
-          <li>
-            Danish Blue
-          </li>
-          <li>
-            Shropshire Blue
-          </li>
-          <li>
-            Dragon's Breath Blue
-          </li>
-          <li>
-            Bleu du Vercors-Sassenage
-          </li>
+        <ul *ngIf="categories.length > 0">
+          <div *ngFor="let category of categories">
+            <li (click)="filterByCategory(category.slug)">
+              <span
+                [ngClass]="
+                  category.slug === categoryFilter ? 'selectedFilter' : ''
+                "
+                >{{ category.title }}</span
+              >
+            </li>
+          </div>
         </ul>
       </div>
     </div>
     <div class="category-content-products">
-      <div *ngIf="!loading; else loadingBlock">
-        <div class="row">
-          <div *ngFor="let product of productsInCateogory">
-            <div class="col">
-              <div class="product">
-                <div
-                  class="product-image"
-                  [ngStyle]="{
-                    'background-image':
-                      'url(' + product.fields.image.fields.file.url + ')'
-                  }"
-                ></div>
-                <div>
-                  <div class="product-title">
-                    {{ product.fields.name }}
-                  </div>
-                  <div class="product-price">
-                    {{ product.fields.price }}
-                    {{ product.fields.currency }}
+      <ng-container *ngIf="loading; else contentBlock">
+        <div>
+          Loading products...
+        </div>
+      </ng-container>
+      <ng-template #contentBlock>
+        <ng-container
+          *ngIf="
+            (productsInCateogory | filterByCategory: categoryFilter).length > 0;
+            else noProductsBlock
+          "
+        >
+          <div class="row">
+            <div
+              *ngFor="
+                let product of productsInCateogory
+                  | filterByCategory: categoryFilter
+              "
+            >
+              <div class="col">
+                <div class="product">
+                  <div
+                    class="product-image"
+                    [ngStyle]="{
+                      'background-image': 'url(' + product.image + ')'
+                    }"
+                  ></div>
+                  <div>
+                    <div class="product-title">
+                      {{ product.name }}
+                    </div>
+                    <div class="product-price">
+                      {{ product.price }}
+                      {{ product.currency }}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <ng-template #loadingBlock>
-        <div class="catalog catalog--loading">
-          <span class="catalog__loading">
-            Loading products...
-          </span>
+        </ng-container>
+      </ng-template>
+      <ng-template #noProductsBlock>
+        <div>
+          No products found with this criteria.
         </div>
       </ng-template>
     </div>
