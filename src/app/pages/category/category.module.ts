@@ -4,6 +4,7 @@ import { CategoryComponent } from "./category.component";
 import { RouterModule } from "@angular/router";
 import { PipesModule } from "src/app/pipes/pipes.module";
 import { Ng5SliderModule } from "ng5-slider";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [CategoryComponent],
@@ -11,6 +12,7 @@ import { Ng5SliderModule } from "ng5-slider";
     CommonModule,
     PipesModule,
     Ng5SliderModule,
+    FormsModule,
     RouterModule.forChild([
       {
         path: ":categoryId",

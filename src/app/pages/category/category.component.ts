@@ -19,13 +19,33 @@ export class CategoryComponent implements OnInit {
 
   // Filters
   public categoryFilter = "";
+  public sortByFilter = "price,asc";
+
+  public sortByOptions = [
+    {
+      name: "Name ascending",
+      value: "name,asc"
+    },
+    {
+      name: "Name descending",
+      value: "name,desc"
+    },
+    {
+      name: "Price ascending",
+      value: "price,asc"
+    },
+    {
+      name: "Price descending",
+      value: "price,desc"
+    }
+  ];
 
   minValue = 0;
-  maxValue = 400; // todo get price range from products...
+  maxValue = 10; // todo get price range from products...
 
   options: Options = {
     floor: 0,
-    ceil: 500,
+    ceil: 10,
     translate: (value: number): string => {
       return "$" + value;
     },
@@ -75,5 +95,9 @@ export class CategoryComponent implements OnInit {
 
   filterByCategory(categoryId: string) {
     this.categoryFilter = categoryId;
+  }
+
+  selectOption(foo) {
+    console.log(foo);
   }
 }

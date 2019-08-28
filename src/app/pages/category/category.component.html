@@ -15,10 +15,10 @@
     <div class="category-breadcrumbs-sortby">
       <div class="category-breadcrumbs-sortby-wrap">
         <label>Sort by:</label>
-        <select name="color" style="width: 100%;">
-          <option value="yellow">Yellow</option>
-          <option value="red">Red</option>
-          <option value="green">Green</option>
+        <select style="width: 100%;" [(ngModel)]="sortByFilter">
+          <option [value]="o.value" *ngFor="let o of sortByOptions">
+            {{ o.name }}
+          </option>
         </select>
       </div>
     </div>
@@ -84,6 +84,7 @@
                 let product of productsInCateogory
                   | filterByCategory: categoryFilter
                   | filterByPriceRange: minValue:maxValue
+                  | sortBy: sortByFilter
               "
             >
               <div class="col">
