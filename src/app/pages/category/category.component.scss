@@ -17,6 +17,16 @@
       padding: 12px;
       font-family: "Montserrat", sans-serif;
       font-size: 12px;
+
+      a {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: black;
+      }
+
+      .selectedCategory {
+        font-weight: 700;
+      }
     }
   }
 

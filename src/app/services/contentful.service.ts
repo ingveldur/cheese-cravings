@@ -37,20 +37,19 @@ export class ContentfulService {
       .then(res => res.items);
   }
 
-  /* getCategory(categoryId): Promise<Entry<any>> {
-    return this.cdaClient.getEntry(
-      Object.assign({
-        content_type: CONFIG.contentTypeIds.category
-      })
+  getCheeseType(categoryId: string): Promise<Entry<Entry<any>>> {
+    return this.getCheeseTypes({ "fields.slug": categoryId }).then(
+      items => items[0]
     );
-  }*/
+  }
 
-  getCategories(query?: object): Promise<Entry<any>[]> {
+  getProducts(query?: object): Promise<Entry<any>[]> {
     return this.cdaClient
       .getEntries(
         Object.assign(
           {
-            content_type: CONFIG.contentTypeIds.category
+            // include: 3,
+            content_type: CONFIG.contentTypeIds.product
           },
           query
         )
@@ -58,9 +57,8 @@ export class ContentfulService {
       .then(res => res.items);
   }
 
-  getCheeseType(categoryId: string): Promise<Entry<Entry<any>>> {
-    console.log("categoryId", categoryId);
-    return this.getCheeseTypes({ "fields.slug": categoryId }).then(
+  getProduct(productId: string): Promise<Entry<any>> {
+    return this.getProducts({ "fields.slug": productId }).then(
       items => items[0]
     );
   }

@@ -15,8 +15,13 @@ import { FormsModule } from "@angular/forms";
     FormsModule,
     RouterModule.forChild([
       {
-        path: ":categoryId",
+        path: "",
         component: CategoryComponent
+      },
+      {
+        path: ":productId",
+        loadChildren: () =>
+          import("../product/product.module").then(m => m.ProductModule)
       }
     ])
   ]

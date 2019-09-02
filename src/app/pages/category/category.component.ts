@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { ContentfulService } from "src/app/services/contentful.service";
 import * as _ from "lodash";
 import { Product } from "src/app/models/Product";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { switchMap } from "rxjs/operators";
-import { Options, LabelType } from "ng5-slider";
-
+import { Options } from "ng5-slider";
+import { Constants } from "../../../constants";
 @Component({
   selector: "app-category",
   templateUrl: "./category.component.html",
@@ -13,7 +13,8 @@ import { Options, LabelType } from "ng5-slider";
 })
 export class CategoryComponent implements OnInit {
   public loading = true;
-  public categoryData: any;
+  public categoryId: string;
+  public cheeseTypes: any = [];
   public categories: any = [];
   public productsInCateogory: Product[] = [];
 
@@ -58,19 +59,24 @@ export class CategoryComponent implements OnInit {
   };
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private contentfulService: ContentfulService
-  ) {}
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit() {
     this.route.paramMap
       .pipe(
-        switchMap((params: ParamMap) =>
-          this.contentfulService.getCheeseType(params.get("categoryId"))
-        )
+        switchMap((params: ParamMap) => {
+          this.categoryId = params.get("categoryId");
+          return this.contentfulService.getCheeseType(params.get("categoryId"));
+        })
       )
       .subscribe(cheeseType => {
         const categoryData: any = cheeseType.fields;
+
         categoryData.categories.forEach(category => {
           this.categories.push({
             slug: category.fields.slug,
@@ -79,12 +85,17 @@ export class CategoryComponent implements OnInit {
 
           if (typeof category.fields.products !== "undefined") {
             category.fields.products.forEach(p => {
+              console.log(p);
               const product = new Product();
+              product.slug = p.fields.slug;
               product.name = p.fields.name;
               product.price = p.fields.price;
               product.currency = p.fields.currency;
               product.image = p.fields.image.fields.file.url;
               product.category = category.fields.slug;
+              product.description =
+                p.fields.description.content[0].content[0].value;
+              product.url = Constants.WEBSITE_URL + p.fields.url;
               this.productsInCateogory.push(product);
             });
           }
@@ -97,7 +108,10 @@ export class CategoryComponent implements OnInit {
     this.categoryFilter = categoryId;
   }
 
-  selectOption(foo) {
-    console.log(foo);
+  goToProduct(product: Product): void {
+    console.log("product clicked: ", product);
+    this.router.navigate([this.router.url, product.slug], {
+      state: { product }
+    });
   }
 }

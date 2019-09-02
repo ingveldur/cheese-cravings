@@ -1,13 +1,28 @@
 <div class="category">
   <div class="category-toolbar">
     <div class="category-toolbar-item">
-      Blue cheese
+      <a
+        [ngClass]="categoryId === 'blue-cheese' ? 'selectedCategory' : ''"
+        [routerLink]="['/category/blue-cheese']"
+      >
+        Blue cheese
+      </a>
     </div>
     <div class="category-toolbar-item">
-      Soft cheese
+      <a
+        [ngClass]="categoryId === 'soft-cheese' ? 'selectedCategory' : ''"
+        [routerLink]="['/category/soft-cheese']"
+      >
+        Soft cheese
+      </a>
     </div>
     <div class="category-toolbar-item">
-      Hard cheese
+      <a
+        [ngClass]="categoryId === 'hard-cheese' ? 'selectedCategory' : ''"
+        [routerLink]="['/category/hard-cheese']"
+      >
+        Hard cheese
+      </a>
     </div>
   </div>
   <div class="category-breadcrumbs">
@@ -62,12 +77,7 @@
     </div>
 
     <div class="category-content-products">
-      <ng-container *ngIf="loading; else contentBlock">
-        <div>
-          Loading products...
-        </div>
-      </ng-container>
-      <ng-template #contentBlock>
+      <ng-container *ngIf="!loading; else loadingBlock">
         <ng-container
           *ngIf="
             (
@@ -88,7 +98,7 @@
               "
             >
               <div class="col">
-                <div class="product">
+                <div class="product" (click)="goToProduct(product)">
                   <div
                     class="product-image"
                     [ngStyle]="{
@@ -109,6 +119,11 @@
             </div>
           </div>
         </ng-container>
+      </ng-container>
+      <ng-template #loadingBlock>
+        <div>
+          Loading products...
+        </div>
       </ng-template>
       <ng-template #noProductsBlock>
         <div>
