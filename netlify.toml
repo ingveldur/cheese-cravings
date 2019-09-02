@@ -1,7 +1,8 @@
 [build]
-  command = "npm run build"
+  command = "ng build --prod"
   publish = "dist/cheese-cravings"
   functions = "src/functions"
+
 [dev]
   command = "npm start"
   port = 4200
