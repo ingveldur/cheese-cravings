@@ -8,7 +8,7 @@ var client = contentful.createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
 });
 
-exports.handler = (_, _, callback) => {
+exports.handler = (event, _, callback) => {
   client
     .getEntries({
       content_type: "product"
