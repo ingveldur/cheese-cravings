@@ -8,11 +8,18 @@ var client = contentful.createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
 });
 
-exports.handler = (_, _, callback) => {
+exports.handler = (event, _, callback) => {
+  const productId = event.queryStringParameters.id;
+
   client
-    .getEntries({
-      content_type: "product"
-    })
+    .getEntries(
+      Object.assign(
+        {
+          content_type: "product"
+        },
+        { "fields.slug": productId }
+      )
+    )
     .then(results => {
       const products = results.items.map(p => {
         const product = {
@@ -22,7 +29,7 @@ exports.handler = (_, _, callback) => {
           currency: p.fields.currency,
           image: p.fields.image.fields.file.url,
           description: p.fields.description.content[0].content[0].value,
-          url: `${process.env.URL}/.netlify/functions/getProducts`
+          url: `${process.env.URL}/.netlify/functions/getProduct?id=${productId}`
         };
 
         return product;
