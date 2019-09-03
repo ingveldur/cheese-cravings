@@ -40,6 +40,12 @@ img {
     position: relative;
     padding: 0 100px;
 
+    &-cheese-type {
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 16px;
+    }
+
     &-name {
       font-weight: bold;
       font-size: 24px;
@@ -48,7 +54,7 @@ img {
     }
 
     &-description {
-      margin-top: 6px;
+      margin-top: 18px;
       font-size: 13px;
       line-height: 16px;
       width: 270px;
@@ -105,11 +111,6 @@ img {
         margin-right: 12px;
       }
 
-      &-buy {
-        background: #ffffff;
-        color: #000000;
-      }
-
       button {
         box-shadow: 0px 6.23923px 23.3971px #ddce9b;
         border-radius: 16px;
@@ -117,7 +118,7 @@ img {
         font-size: 12px;
         line-height: 15px;
         text-transform: uppercase;
-        padding: 12px 18px;
+        padding: 16px 18px;
         font-family: "Montserrat", sans-serif;
         border: none;
         outline: none;

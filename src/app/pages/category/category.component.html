@@ -1,27 +1,11 @@
 <div class="category">
   <div class="category-toolbar">
-    <div class="category-toolbar-item">
+    <div class="category-toolbar-item" *ngFor="let cheeseType of cheeseTypes">
       <a
-        [ngClass]="categoryId === 'blue-cheese' ? 'selectedCategory' : ''"
-        [routerLink]="['/category/blue-cheese']"
+        [ngClass]="categoryId === cheeseType.id ? 'selectedCategory' : ''"
+        [routerLink]="['/category/' + cheeseType.id]"
       >
-        Blue cheese
-      </a>
-    </div>
-    <div class="category-toolbar-item">
-      <a
-        [ngClass]="categoryId === 'soft-cheese' ? 'selectedCategory' : ''"
-        [routerLink]="['/category/soft-cheese']"
-      >
-        Soft cheese
-      </a>
-    </div>
-    <div class="category-toolbar-item">
-      <a
-        [ngClass]="categoryId === 'hard-cheese' ? 'selectedCategory' : ''"
-        [routerLink]="['/category/hard-cheese']"
-      >
-        Hard cheese
+        {{ cheeseType.name }}
       </a>
     </div>
   </div>
@@ -81,7 +65,7 @@
         <ng-container
           *ngIf="
             (
-              productsInCateogory
+              productsInCategory
               | filterByCategory: categoryFilter
               | filterByPriceRange: minValue:maxValue
             ).length > 0;
@@ -91,7 +75,7 @@
           <div class="row">
             <div
               *ngFor="
-                let product of productsInCateogory
+                let product of productsInCategory
                   | filterByCategory: categoryFilter
                   | filterByPriceRange: minValue:maxValue
                   | sortBy: sortByFilter

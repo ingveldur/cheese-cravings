@@ -4,6 +4,9 @@
   </i>
   <div class="product">
     <div class="product-info">
+      <div class="product-info-cheese-type">
+        {{ cheeseType.name }}
+      </div>
       <div class="product-info-name">
         {{ product.name }}
       </div>
@@ -26,30 +29,19 @@
 
       <div class="product-info-buttons">
         <button
+          data-autopop="false"
           [disabled]="quantity === 0"
-          class="snipcart-add-item"
+          class="product-info-buttons-add snipcart-add-item"
           [attr.data-item-url]="product.url"
           [attr.data-item-id]="product.id"
           [attr.data-item-price]="product.price"
           [attr.data-item-description]="product.description"
           [attr.data-item-image]="product.image"
           [attr.data-item-name]="product.name"
+          [attr.data-item-quantity]="quantity"
         >
           Add to cart
         </button>
-
-        <!--        <button
-          [disabled]="quantity === 0"
-          class="product-info-buttons-buy snipcart-add-item"
-          [attr.data-item-url]="product.url"
-          [attr.data-item-id]="product.slug"
-          [attr.data-item-price]="product.price"
-          [attr.data-item-description]="product.description"
-          [attr.data-item-image]="product.image"
-          [attr.data-item-name]="product.name"
-        >
-          Buy now</button
-        >-->
       </div>
     </div>
   </div>

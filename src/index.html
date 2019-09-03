@@ -18,6 +18,14 @@
       type="text/css"
       rel="stylesheet"
     />
+    <script>
+      document.addEventListener("snipcart.ready", function() {
+        Snipcart.api.configure("show_continue_shopping", true);
+
+        /* Snipcart.subscribe("item.adding", function(ev, item, items) {
+        });*/
+      });
+    </script>
   </head>
   <body>
     <app-root></app-root>

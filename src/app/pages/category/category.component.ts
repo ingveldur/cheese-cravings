@@ -15,9 +15,9 @@ import { Category } from "src/app/models/Category";
 export class CategoryComponent implements OnInit {
   public loading = true;
   public categoryId: string;
-  // public cheeseTypes: any = [];
   public categories: any = [];
-  public productsInCateogory: Product[] = [];
+  public cheeseTypes: any = [];
+  public productsInCategory: Product[] = [];
 
   // Filters
   public categoryFilter = "";
@@ -65,28 +65,20 @@ export class CategoryComponent implements OnInit {
     private contentfulService: ContentfulService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.categoryId = this.route.snapshot.paramMap.get("categoryId");
+    this.cheeseTypes = this.contentfulService.getAllCheeseTypes();
   }
 
   ngOnInit() {
-    this.route.paramMap
-      .pipe(
-        switchMap((params: ParamMap) => {
-          this.categoryId = params.get("categoryId");
-          return this.contentfulService.getAllCategoriesInCheeseType(
-            params.get("categoryId")
-          );
-        })
-      )
+    this.contentfulService
+      .getAllCategoriesInCheeseType(this.categoryId)
       .subscribe((categories: Category[]) => {
-        console.log("categories", categories);
         this.categories = categories;
-
         categories.forEach(category => {
-          this.productsInCateogory = this.productsInCateogory.concat(
+          this.productsInCategory = this.productsInCategory.concat(
             category.products
           );
         });
-        console.log("productsInCateogory", this.productsInCateogory);
         this.loading = false;
       });
   }
@@ -96,7 +88,6 @@ export class CategoryComponent implements OnInit {
   }
 
   goToProduct(product: Product): void {
-    console.log("product clicked: ", product);
     this.router.navigate([this.router.url, product.id], {
       state: { product }
     });
