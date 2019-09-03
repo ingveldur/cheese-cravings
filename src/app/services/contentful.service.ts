@@ -3,23 +3,28 @@ import { Observable } from "rxjs";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Product } from "../models/Product";
 import { Category } from "../models/Category";
+import { isDevMode } from "@angular/core";
 
 @Injectable({
   providedIn: "root"
 })
 export class ContentfulService {
-  constructor(private http: HttpClient) {}
+  private functionsUrl = "";
+
+  constructor(private http: HttpClient) {
+    console.log("IS DEV:", isDevMode());
+    this.functionsUrl = isDevMode()
+      ? "http://localhost:8888/.netlify/functions"
+      : "/.netlify/functions";
+  }
 
   getAllProducts(productId?: string): Observable<Product[]> {
-    return this.http.get<Product[]>(
-      "/.netlify/functions/getProducts", // todo remove the localhost, use relative in prod
-      {
-        headers: {
-          "Content-Type": "application/json"
-        },
-        params: productId ? new HttpParams().set("id", productId) : null
-      }
-    );
+    return this.http.get<Product[]>(`${this.functionsUrl}/getProducts`, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      params: productId ? new HttpParams().set("id", productId) : null
+    });
   }
 
   getProduct(productId: string): Observable<Product[]> {
@@ -28,7 +33,7 @@ export class ContentfulService {
 
   getAllCategoriesInCheeseTypes(cheeseType?: string): Observable<Category[]> {
     return this.http.get<Category[]>(
-      "/.netlify/functions/getCategoriesInCheeseType", // todo remove the localhost, use relative in prod
+      `${this.functionsUrl}/getCategoriesInCheeseType`,
       {
         headers: {
           "Content-Type": "application/json"
