@@ -12,7 +12,7 @@ export class ContentfulService {
 
   getAllProducts(productId?: string): Observable<Product[]> {
     return this.http.get<Product[]>(
-      "http://localhost:8888/.netlify/functions/getProducts", // todo remove the localhost, use relative in prod
+      "/.netlify/functions/getProducts", // todo remove the localhost, use relative in prod
       {
         headers: {
           "Content-Type": "application/json"
@@ -28,7 +28,7 @@ export class ContentfulService {
 
   getAllCategoriesInCheeseTypes(cheeseType?: string): Observable<Category[]> {
     return this.http.get<Category[]>(
-      "http://localhost:8888/.netlify/functions/getCategoriesInCheeseType", // todo remove the localhost, use relative in prod
+      "/.netlify/functions/getCategoriesInCheeseType", // todo remove the localhost, use relative in prod
       {
         headers: {
           "Content-Type": "application/json"
