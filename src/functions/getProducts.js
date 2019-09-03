@@ -9,10 +9,17 @@ var client = contentful.createClient({
 });
 
 exports.handler = (event, _, callback) => {
+  let query = { "fields.slug": event.queryStringParameters.id };
+
   client
-    .getEntries({
-      content_type: "product"
-    })
+    .getEntries(
+      Object.assign(
+        {
+          content_type: "product"
+        },
+        query
+      )
+    )
     .then(results => {
       const products = results.items.map(p => {
         const product = {
@@ -22,6 +29,7 @@ exports.handler = (event, _, callback) => {
           currency: p.fields.currency,
           image: p.fields.image.fields.file.url,
           description: p.fields.description.content[0].content[0].value,
+          category: "TODO!!",
           url: `${process.env.URL}/.netlify/functions/getProducts`
         };
 
@@ -31,7 +39,13 @@ exports.handler = (event, _, callback) => {
       callback(null, {
         statusCode: 200,
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers":
+            "Origin, X-Requested-With, Content-Type, Accept",
+          "Access-Control-Allow-Methods": "*",
+          "Access-Control-Max-Age": "2592000",
+          "Access-Control-Allow-Credentials": "true"
         },
         body: JSON.stringify(products)
       });

@@ -1,43 +1,44 @@
-<i>
-  <img [src]="product.image" />
-</i>
-<div class="product">
-  <div class="product-info">
-    <div class="product-info-name">
-      {{ product.name }}
-    </div>
-    <div class="product-info-description">
-      {{ product.description }}
-    </div>
-    <div class="product-info-strength">
-      Medium strength
-    </div>
-    <div class="product-info-price">
-      {{ product.price }} {{ product.currency }} <span>/ pound</span>
-    </div>
-    <div class="product-info-quantity">
-      <button [disabled]="quantity === 0" (click)="updateQuantity(-1)">
-        -
-      </button>
-      <span>{{ quantity }}</span>
-      <button (click)="updateQuantity(1)">+</button>
-    </div>
+<ng-container *ngIf="!loading; else loadingBlock">
+  <i>
+    <img [src]="product.image" />
+  </i>
+  <div class="product">
+    <div class="product-info">
+      <div class="product-info-name">
+        {{ product.name }}
+      </div>
+      <div class="product-info-description">
+        {{ product.description }}
+      </div>
+      <div class="product-info-strength">
+        Medium strength
+      </div>
+      <div class="product-info-price">
+        {{ product.price }} {{ product.currency }} <span>/ pound</span>
+      </div>
+      <div class="product-info-quantity">
+        <button [disabled]="quantity === 0" (click)="updateQuantity(-1)">
+          -
+        </button>
+        <span>{{ quantity }}</span>
+        <button (click)="updateQuantity(1)">+</button>
+      </div>
 
-    <div class="product-info-buttons">
-      <button
-        [disabled]="quantity === 0"
-        class="snipcart-add-item"
-        [attr.data-item-url]="'/'"
-        [attr.data-item-id]="product.slug"
-        [attr.data-item-price]="product.price"
-        [attr.data-item-description]="product.description"
-        [attr.data-item-image]="product.image"
-        [attr.data-item-name]="product.name"
-      >
-        Add to cart
-      </button>
+      <div class="product-info-buttons">
+        <button
+          [disabled]="quantity === 0"
+          class="snipcart-add-item"
+          [attr.data-item-url]="product.url"
+          [attr.data-item-id]="product.id"
+          [attr.data-item-price]="product.price"
+          [attr.data-item-description]="product.description"
+          [attr.data-item-image]="product.image"
+          [attr.data-item-name]="product.name"
+        >
+          Add to cart
+        </button>
 
-      <!--        <button
+        <!--        <button
           [disabled]="quantity === 0"
           class="product-info-buttons-buy snipcart-add-item"
           [attr.data-item-url]="product.url"
@@ -49,6 +50,12 @@
         >
           Buy now</button
         >-->
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
+<ng-template #loadingBlock>
+  <div>
+    Loading products...
+  </div>
+</ng-template>

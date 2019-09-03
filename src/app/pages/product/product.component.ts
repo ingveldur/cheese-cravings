@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { ContentfulService } from "src/app/services/contentful.service";
 import { switchMap } from "rxjs/operators";
 import { Product } from "src/app/models/Product";
-import { Constants } from "src/constants";
+
 @Component({
   selector: "app-product",
   templateUrl: "./product.component.html",
@@ -29,16 +29,18 @@ export class ProductComponent implements OnInit {
             return this.contentfulService.getProduct(params.get("productId"));
           })
         )
-        .subscribe(p => {
-          this.product = new Product();
-          this.product.slug = p.fields.slug;
-          this.product.name = p.fields.name;
-          this.product.price = p.fields.price;
-          this.product.currency = p.fields.currency;
-          this.product.image = p.fields.image.fields.file.url;
-          this.product.description =
-            p.fields.description.content[0].content[0].value;
-          this.product.url = Constants.WEBSITE_URL + p.fields.url;
+        .subscribe(response => {
+          console.log(response[0]);
+          // this.product = new Product();
+          // this.product.slug = p.fields.slug;
+          // this.product.name = p.fields.name;
+          // this.product.price = p.fields.price;
+          // this.product.currency = p.fields.currency;
+          // this.product.image = p.fields.image.fields.file.url;
+          // this.product.description =
+          //   p.fields.description.content[0].content[0].value;
+          // this.product.url = Constants.WEBSITE_URL + p.fields.url;
+          this.product = response[0];
 
           this.loading = false;
         });

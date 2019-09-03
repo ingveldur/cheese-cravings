@@ -1,65 +1,44 @@
 import { Injectable } from "@angular/core";
-import { createClient, Entry } from "contentful";
-
-const CONFIG = {
-  space: "xofor6t276q8",
-  accessToken: "Dbw9S4BO-79LLwhMpRx4vvZXFhSAbZA4RfpbvJNLR4o",
-
-  contentTypeIds: {
-    cheeseType: "cheeseType",
-    category: "category",
-    product: "product"
-  }
-};
+import { Observable } from "rxjs";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Product } from "../models/Product";
+import { Category } from "../models/Category";
 
 @Injectable({
   providedIn: "root"
 })
 export class ContentfulService {
-  private cdaClient = createClient({
-    space: CONFIG.space,
-    accessToken: CONFIG.accessToken
-  });
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
-
-  getCheeseTypes(query?: object): Promise<Entry<any>[]> {
-    return this.cdaClient
-      .getEntries(
-        Object.assign(
-          {
-            include: 3,
-            content_type: CONFIG.contentTypeIds.cheeseType
-          },
-          query
-        )
-      )
-      .then(res => res.items);
-  }
-
-  getCheeseType(categoryId: string): Promise<Entry<Entry<any>>> {
-    return this.getCheeseTypes({ "fields.slug": categoryId }).then(
-      items => items[0]
+  getAllProducts(productId?: string): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      "http://localhost:8888/.netlify/functions/getProducts", // todo remove the localhost, use relative in prod
+      {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        params: productId ? new HttpParams().set("id", productId) : null
+      }
     );
   }
 
-  getProducts(query?: object): Promise<Entry<any>[]> {
-    return this.cdaClient
-      .getEntries(
-        Object.assign(
-          {
-            // include: 3,
-            content_type: CONFIG.contentTypeIds.product
-          },
-          query
-        )
-      )
-      .then(res => res.items);
+  getProduct(productId: string): Observable<Product[]> {
+    return this.getAllProducts(productId);
   }
 
-  getProduct(productId: string): Promise<Entry<any>> {
-    return this.getProducts({ "fields.slug": productId }).then(
-      items => items[0]
+  getAllCategoriesInCheeseTypes(cheeseType?: string): Observable<Category[]> {
+    return this.http.get<Category[]>(
+      "http://localhost:8888/.netlify/functions/getCategoriesInCheeseType", // todo remove the localhost, use relative in prod
+      {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        params: cheeseType ? new HttpParams().set("id", cheeseType) : null
+      }
     );
+  }
+
+  getAllCategoriesInCheeseType(cheeseType: string): Observable<Category[]> {
+    return this.getAllCategoriesInCheeseTypes(cheeseType);
   }
 }

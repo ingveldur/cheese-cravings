@@ -6,6 +6,7 @@ import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { Options } from "ng5-slider";
 import { Constants } from "../../../constants";
+import { Category } from "src/app/models/Category";
 @Component({
   selector: "app-category",
   templateUrl: "./category.component.html",
@@ -14,7 +15,7 @@ import { Constants } from "../../../constants";
 export class CategoryComponent implements OnInit {
   public loading = true;
   public categoryId: string;
-  public cheeseTypes: any = [];
+  // public cheeseTypes: any = [];
   public categories: any = [];
   public productsInCateogory: Product[] = [];
 
@@ -71,35 +72,21 @@ export class CategoryComponent implements OnInit {
       .pipe(
         switchMap((params: ParamMap) => {
           this.categoryId = params.get("categoryId");
-          return this.contentfulService.getCheeseType(params.get("categoryId"));
+          return this.contentfulService.getAllCategoriesInCheeseType(
+            params.get("categoryId")
+          );
         })
       )
-      .subscribe(cheeseType => {
-        const categoryData: any = cheeseType.fields;
+      .subscribe((categories: Category[]) => {
+        console.log("categories", categories);
+        this.categories = categories;
 
-        categoryData.categories.forEach(category => {
-          this.categories.push({
-            slug: category.fields.slug,
-            title: category.fields.title
-          });
-
-          if (typeof category.fields.products !== "undefined") {
-            category.fields.products.forEach(p => {
-              console.log(p);
-              const product = new Product();
-              product.slug = p.fields.slug;
-              product.name = p.fields.name;
-              product.price = p.fields.price;
-              product.currency = p.fields.currency;
-              product.image = p.fields.image.fields.file.url;
-              product.category = category.fields.slug;
-              product.description =
-                p.fields.description.content[0].content[0].value;
-              product.url = Constants.WEBSITE_URL + p.fields.url;
-              this.productsInCateogory.push(product);
-            });
-          }
+        categories.forEach(category => {
+          this.productsInCateogory = this.productsInCateogory.concat(
+            category.products
+          );
         });
+        console.log("productsInCateogory", this.productsInCateogory);
         this.loading = false;
       });
   }
@@ -110,7 +97,7 @@ export class CategoryComponent implements OnInit {
 
   goToProduct(product: Product): void {
     console.log("product clicked: ", product);
-    this.router.navigate([this.router.url, product.slug], {
+    this.router.navigate([this.router.url, product.id], {
       state: { product }
     });
   }
