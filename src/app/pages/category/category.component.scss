@@ -165,6 +165,8 @@
             text-align: center;
             box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
             border-radius: 6px;
+            cursor: pointer;
+
             @include smallerThanDesktop {
               margin: auto;
             }

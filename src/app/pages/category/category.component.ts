@@ -2,10 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ContentfulService } from "src/app/services/contentful.service";
 import * as _ from "lodash";
 import { Product } from "src/app/models/Product";
-import { ActivatedRoute, ParamMap, Router } from "@angular/router";
-import { switchMap } from "rxjs/operators";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Options } from "ng5-slider";
-import { Constants } from "../../../constants";
 import { Category } from "src/app/models/Category";
 @Component({
   selector: "app-category",
