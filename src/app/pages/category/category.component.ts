@@ -5,6 +5,7 @@ import { Product } from "src/app/models/Product";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Options } from "ng5-slider";
 import { Category } from "src/app/models/Category";
+
 @Component({
   selector: "app-category",
   templateUrl: "./category.component.html",
@@ -14,8 +15,8 @@ export class CategoryComponent implements OnInit {
   public loading = true;
   public categoryId: string;
   public categories: any = [];
-  public cheeseTypes: any = [];
   public productsInCategory: Product[] = [];
+  public toolbarItems: any[] = [{ id: "all-products", name: "All products" }];
 
   // Filters
   public categoryFilter = "";
@@ -64,7 +65,9 @@ export class CategoryComponent implements OnInit {
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.categoryId = this.route.snapshot.paramMap.get("categoryId");
-    this.cheeseTypes = this.contentfulService.getAllCheeseTypes();
+    this.toolbarItems = this.toolbarItems.concat(
+      this.contentfulService.getAllCheeseTypes()
+    );
   }
 
   ngOnInit() {

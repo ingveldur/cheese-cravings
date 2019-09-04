@@ -1,11 +1,15 @@
 <div class="category">
   <div class="category-toolbar">
-    <div class="category-toolbar-item" *ngFor="let cheeseType of cheeseTypes">
+    <div class="category-toolbar-item" *ngFor="let toolbarItem of toolbarItems">
       <a
-        [ngClass]="categoryId === cheeseType.id ? 'selectedCategory' : ''"
-        [routerLink]="['/category/' + cheeseType.id]"
+        [ngClass]="categoryId === toolbarItem.id ? 'selectedCategory' : ''"
+        [routerLink]="
+          toolbarItem.id === 'all-products'
+            ? ['/products']
+            : ['/category/' + toolbarItem.id]
+        "
       >
-        {{ cheeseType.name }}
+        {{ toolbarItem.name }}
       </a>
     </div>
   </div>
