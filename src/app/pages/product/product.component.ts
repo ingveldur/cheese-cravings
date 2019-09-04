@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ContentfulService } from "src/app/services/contentful.service";
 import { Product } from "src/app/models/Product";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-product",
@@ -17,7 +18,8 @@ export class ProductComponent implements OnInit {
   public quantity = 1;
 
   constructor(
-    public route: ActivatedRoute,
+    private route: ActivatedRoute,
+    private location: Location,
     private contentfulService: ContentfulService
   ) {
     this.productId = this.route.snapshot.paramMap.get("productId");
@@ -40,5 +42,9 @@ export class ProductComponent implements OnInit {
 
   updateQuantity(value) {
     this.quantity += value;
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

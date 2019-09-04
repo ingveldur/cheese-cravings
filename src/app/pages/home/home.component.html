@@ -20,24 +20,33 @@
       Categories
     </div>
     <div class="home-categories-row">
-      <div class="home-categories-row-category">
+      <a
+        class="home-categories-row-category"
+        [routerLink]="['/category/blue-cheese']"
+      >
         <img src="../assets/images/blue-cheese.png" />
         <div class="home-categories-row-category-title">
           Blue cheese
         </div>
-      </div>
-      <div class="home-categories-row-category">
+      </a>
+      <a
+        class="home-categories-row-category"
+        [routerLink]="['/category/soft-cheese']"
+      >
         <img src="../assets/images/soft-cheese.png" />
         <div class="home-categories-row-category-title">
           Soft cheese
         </div>
-      </div>
-      <div class="home-categories-row-category">
+      </a>
+      <a
+        class="home-categories-row-category"
+        [routerLink]="['/category/hard-cheese']"
+      >
         <img src="../assets/images/hard-cheese.png" />
         <div class="home-categories-row-category-title">
           Hard cheese
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>

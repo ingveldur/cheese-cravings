@@ -1,4 +1,7 @@
 <ng-container *ngIf="!loading; else loadingBlock">
+  <div (click)="goBack()">
+    Back
+  </div>
   <i>
     <img [src]="product.image" />
   </i>
