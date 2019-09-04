@@ -1,10 +1,13 @@
 <ng-container *ngIf="!loading; else loadingBlock">
-  <div (click)="goBack()">
-    Back
-  </div>
   <i>
     <img [src]="product.image" />
   </i>
+  <div class="back-button">
+    <img src="../../../assets/images/back-arrow.svg" />
+    <a [routerLink]="['/category/' + cheeseType.id]">
+      Back
+    </a>
+  </div>
   <div class="product">
     <div class="product-info">
       <div class="product-info-cheese-type">
