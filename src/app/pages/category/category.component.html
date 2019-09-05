@@ -1,41 +1,25 @@
 <div class="category">
-  <div class="category-toolbar">
-    <div class="category-toolbar-item" *ngFor="let toolbarItem of toolbarItems">
-      <a
-        [ngClass]="categoryId === toolbarItem.id ? 'selectedCategory' : ''"
-        [routerLink]="
-          toolbarItem.id === 'all-products'
-            ? ['/products']
-            : ['/category/' + toolbarItem.id]
-        "
-      >
-        {{ toolbarItem.name }}
-      </a>
-    </div>
-  </div>
-  <div class="category-breadcrumbs">
-    <div class="category-breadcrumbs-path">Home / Categories / Blue Cheese</div>
-    <div class="category-breadcrumbs-sortby">
-      <div class="category-breadcrumbs-sortby-wrap">
-        <label>Sort by:</label>
-        <select style="width: 100%;" [(ngModel)]="sortByFilter">
-          <option [value]="o.value" *ngFor="let o of sortByOptions">
-            {{ o.name }}
-          </option>
-        </select>
-      </div>
-    </div>
-  </div>
+  <app-category-toolbar
+    [toolbarItems]="toolbarItems"
+    [selectedItem]="categoryId"
+  ></app-category-toolbar>
+  <app-breadcrumbs
+    [sortByOptions]="sortByOptions"
+    [(sortByFilter)]="sortByFilter"
+  ></app-breadcrumbs>
   <div class="category-content">
     <div class="category-content-filters">
       <div class="category-content-filters-category-name">
-        Blue cheese.
+        {{ category.name }}.
       </div>
       <div class="category-content-filters-title">
         Filters
         <img src="../assets/images/filter.svg" />
       </div>
-      <div class="category-content-filters-filter">
+      <div
+        *ngIf="category.id !== 'all-products'"
+        class="category-content-filters-filter"
+      >
         <div class="category-content-filters-filter-title">Types</div>
         <div class="category-content-filters-list">
           <ul *ngIf="categories.length > 0">

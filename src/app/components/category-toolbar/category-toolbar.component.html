@@ -1,0 +1,18 @@
+<div class="toolbar">
+  <div class="toolbar-item" *ngFor="let toolbarItem of toolbarItems">
+    <a
+      [ngClass]="selectedItem === toolbarItem.id ? 'selected' : ''"
+      [routerLink]="['/category/' + toolbarItem.id]"
+    >
+      {{ toolbarItem.name }}
+    </a>
+  </div>
+</div>
+
+<!--
+  [routerLink]="
+        toolbarItem.id === 'all-products'
+          ? ['/products']
+          : ['/category/' + toolbarItem.id]
+      "
+-->

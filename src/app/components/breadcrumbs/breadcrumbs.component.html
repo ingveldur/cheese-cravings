@@ -1,0 +1,19 @@
+<div class="breadcrumbs">
+  <div class="breadcrumbs-path">Home / Categories / Blue Cheese</div>
+  <div class="breadcrumbs-sortby">
+    <div class="breadcrumbs-sortby-wrap">
+      <label>Sort by:</label>
+      <select
+        style="width: 100%;"
+        [(ngModel)]="sortByFilter"
+        (ngModelChange)="sortByFilterChange.emit($event)"
+        ngControl="sortByFilter"
+        name="sortByFilter"
+      >
+        <option [value]="o.value" *ngFor="let o of sortByOptions">
+          {{ o.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>

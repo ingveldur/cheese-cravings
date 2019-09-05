@@ -14,6 +14,7 @@ import { Category } from "src/app/models/Category";
 export class CategoryComponent implements OnInit {
   public loading = true;
   public categoryId: string;
+  public category: any;
   public categories: any = [];
   public productsInCategory: Product[] = [];
   public toolbarItems: any[] = [{ id: "all-products", name: "All products" }];
@@ -68,20 +69,30 @@ export class CategoryComponent implements OnInit {
     this.toolbarItems = this.toolbarItems.concat(
       this.contentfulService.getAllCheeseTypes()
     );
+    this.category = this.toolbarItems.find(c => c.id === this.categoryId);
   }
 
   ngOnInit() {
-    this.contentfulService
-      .getAllCategoriesInCheeseType(this.categoryId)
-      .subscribe((categories: Category[]) => {
-        this.categories = categories;
-        categories.forEach(category => {
-          this.productsInCategory = this.productsInCategory.concat(
-            category.products
-          );
+    if (this.categoryId === "all-products") {
+      this.contentfulService
+        .getAllProducts()
+        .subscribe((products: Product[]) => {
+          this.productsInCategory = products;
+          this.loading = false;
         });
-        this.loading = false;
-      });
+    } else {
+      this.contentfulService
+        .getAllCategoriesInCheeseType(this.categoryId)
+        .subscribe((categories: Category[]) => {
+          this.categories = categories;
+          categories.forEach(category => {
+            this.productsInCategory = this.productsInCategory.concat(
+              category.products
+            );
+          });
+          this.loading = false;
+        });
+    }
   }
 
   filterByCategory(categoryId: string) {
