@@ -11,6 +11,7 @@ export class BreadcrumbsComponent implements OnInit {
   >();
   @Input() sortByFilter: string;
   @Input() sortByOptions: any[];
+  @Input() pageName: string;
 
   constructor() {}
 
