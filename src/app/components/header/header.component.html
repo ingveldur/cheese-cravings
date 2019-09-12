@@ -1,0 +1,24 @@
+<header>
+  <div class="logo">
+    <a [routerLink]="['/home']">
+      <img src="../assets/images/logo.svg" />
+      Cheese Cravings
+    </a>
+  </div>
+  <div class="links">
+    <div class="shopping-cart">
+      <a href="#" class="snipcart-checkout" style="text-decoration: none;">
+        <div class="snipcart-summary">
+          <img src="../assets/images/cart.svg" />
+          <span class="snipcart-total-price"></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!--
+    [ngStyle]="{
+    background: withBackgroundColor ? '#fff7da' : ''
+  }"
+-->

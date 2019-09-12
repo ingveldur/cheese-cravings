@@ -2,22 +2,24 @@
 @import "../../../assets/scss/utils/colors.scss";
 
 .home {
-  background: $color-yellow-main;
-  height: 100%;
+  height: -webkit-fill-available;
   font-family: "Montserrat", sans-serif;
+  background: $color-yellow-main;
   background-image: url("../../../assets/images/home-background.svg");
   background-repeat: no-repeat;
-  background-position: 110% 0%;
+  background-position: 100% 100%;
+  background-size: 50%;
 
   &-intro {
     display: flex;
+    align-items: center;
     margin: 0 auto;
     width: 1200px;
     max-width: 100%;
-    padding-top: 90px;
+    padding-top: 130px;
 
     &-text {
-      margin-left: 24px;
+      margin: 0 0 0 86px;
 
       &-title {
         font-style: normal;
@@ -25,17 +27,15 @@
         font-size: 40px;
         line-height: 44px;
         width: 208px;
-        height: 93px;
       }
 
       &-description {
         font-weight: 300;
         font-size: 18px;
-        line-height: 22px;
+        line-height: 26px;
         letter-spacing: 0.06em;
         width: 425px;
-        height: 50px;
-        margin-top: 12px;
+        margin: 28px 0 0;
       }
 
       &-button {
@@ -58,10 +58,10 @@
 
     &-image {
       display: block;
-      margin: 0 24px 0 auto;
+      margin: 0 80px 0 auto;
 
       img {
-        width: 550px;
+        width: 470px;
         max-width: 100%;
       }
     }

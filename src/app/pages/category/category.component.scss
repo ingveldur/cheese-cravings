@@ -2,8 +2,11 @@
 @import "../../../assets/scss/utils/colors.scss";
 
 .category {
-  height: calc(100vh - 160px);
   font-family: "Lato", sans-serif;
+  height: -webkit-fill-available;
+  width: -webkit-fill-available;
+  position: absolute;
+  top: 77px;
 
   &-content {
     display: flex;
