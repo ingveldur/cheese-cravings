@@ -11,7 +11,7 @@ import { Location } from "@angular/common";
 })
 export class ProductComponent implements OnInit {
   public loading = true;
-  public cheeseType;
+  public previousRoute;
   public productId;
 
   public product: Product = null;
@@ -23,9 +23,7 @@ export class ProductComponent implements OnInit {
     private contentfulService: ContentfulService
   ) {
     this.productId = this.route.snapshot.paramMap.get("productId");
-    this.cheeseType = this.contentfulService.getCheeseType(
-      this.route.snapshot.paramMap.get("categoryId")
-    );
+    this.previousRoute = this.route.snapshot.paramMap.get("categoryId");
   }
 
   ngOnInit() {

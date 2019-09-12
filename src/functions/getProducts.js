@@ -29,7 +29,8 @@ exports.handler = (event, _, callback) => {
           currency: p.fields.currency,
           image: p.fields.image.fields.file.url,
           description: p.fields.description.content[0].content[0].value,
-          url: `${process.env.URL}/.netlify/functions/getProducts`
+          url: `${process.env.URL}/.netlify/functions/getProducts`,
+          cheeseType: p.fields.cheeseType
         };
 
         return product;

@@ -6,6 +6,7 @@ export class Product {
   image: string;
   strength: string; // TODO
   category: string;
+  cheeseType: string;
   description: string;
   url: string;
 }

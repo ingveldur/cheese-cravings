@@ -30,7 +30,7 @@ export class ContentfulService {
   }
 
   getCheeseType(id: string): any {
-    return this.getAllCheeseTypes().find(c => (c.id = id));
+    return this.getAllCheeseTypes().find(c => c.id === id);
   }
 
   getAllProducts(productId?: string): Observable<Product[]> {
