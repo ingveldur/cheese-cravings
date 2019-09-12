@@ -1,4 +1,8 @@
-<header>
+<header
+  [ngStyle]="{
+    background: url !== '/home' ? '#fff7da' : ''
+  }"
+>
   <div class="logo">
     <a [routerLink]="['/home']">
       <img src="../assets/images/logo.svg" />
@@ -16,9 +20,3 @@
     </div>
   </div>
 </header>
-
-<!--
-    [ngStyle]="{
-    background: withBackgroundColor ? '#fff7da' : ''
-  }"
--->
