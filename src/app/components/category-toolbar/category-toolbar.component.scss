@@ -1,3 +1,5 @@
+@import "../../../assets/scss/utils/mixins.scss";
+
 .toolbar {
   display: flex;
   align-items: center;
@@ -10,6 +12,11 @@
     padding: 12px;
     font-family: "Montserrat", sans-serif;
     font-size: 12px;
+
+    @include mobile {
+      font-size: 8px;
+      padding: 9px 0;
+    }
 
     a {
       text-decoration: none;

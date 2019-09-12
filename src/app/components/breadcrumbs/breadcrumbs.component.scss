@@ -1,14 +1,31 @@
+@import "../../../assets/scss/utils/mixins.scss";
+
 .breadcrumbs {
   display: flex;
   align-items: center;
   font-family: "Montserrat", sans-serif;
   font-size: 11px;
 
+  @include mobile {
+    font-weight: 300;
+    font-size: 8px;
+    line-height: 7px;
+  }
+
   &-path {
     margin: 16px auto 16px 24px;
+
+    @include mobile {
+      margin: 12px auto 12px 18px;
+    }
   }
+
   &-sortby {
     margin: 16px 24px 16px auto;
+
+    @include mobile {
+      display: none;
+    }
 
     &-wrap {
       display: flex;

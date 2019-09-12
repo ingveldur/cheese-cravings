@@ -8,12 +8,24 @@
   position: absolute;
   top: 77px;
 
+  @include mobile {
+    top: 65px;
+  }
+
   &-content {
     display: flex;
     height: 100%;
 
+    @include mobile {
+      display: block;
+    }
+
     &-filters {
       width: 260px;
+
+      @include mobile {
+        width: 100%;
+      }
 
       &-category-name {
         font-family: "Montserrat", sans-serif;
@@ -21,6 +33,11 @@
         font-size: 18px;
         line-height: 22px;
         margin: 6px 24px 0;
+
+        @include mobile {
+          font-size: 11px;
+          line-height: 13px;
+        }
       }
 
       &-title {
@@ -34,11 +51,18 @@
           width: 18px;
           margin-left: 6px;
         }
+
+        @include mobile {
+          display: none;
+        }
       }
 
       &-filter {
         margin: 32px auto 16px 24px;
 
+        @include mobile {
+          display: none;
+        }
         &-title {
           font-family: "Montserrat", sans-serif;
           font-weight: 500;
