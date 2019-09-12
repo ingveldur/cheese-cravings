@@ -1,6 +1,6 @@
 <header
   [ngStyle]="{
-    background: url !== '/home' ? '#fff7da' : ''
+    background: url && !url.includes('home') ? '#fff7da' : ''
   }"
 >
   <div class="logo">
