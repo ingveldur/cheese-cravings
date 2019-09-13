@@ -38,6 +38,7 @@ header {
     font-family: "Montserrat", sans-serif;
     font-weight: 300;
     font-size: 14px;
+    z-index: 3;
 
     @include mobile {
       margin: 18px;

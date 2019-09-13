@@ -1,5 +1,5 @@
 <ng-container *ngIf="!loading; else loadingBlock">
-  <div class="foo">
+  <div class="product-wrapper">
     <i>
       <img [src]="product.image" />
     </i>
@@ -55,7 +55,7 @@
   </div>
 </ng-container>
 <ng-template #loadingBlock>
-  <div>
+  <div style="margin: 24px;">
     Loading product...
   </div>
 </ng-template>
