@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from "@angular/core";
 export class CategoryToolbarComponent implements OnInit {
   @Input() toolbarItems;
   @Input() selectedItem;
+  @Input() disabled;
 
   constructor() {}
 

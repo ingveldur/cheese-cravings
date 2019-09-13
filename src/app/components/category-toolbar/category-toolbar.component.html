@@ -1,7 +1,10 @@
 <div class="toolbar">
   <div class="toolbar-item" *ngFor="let toolbarItem of toolbarItems">
     <a
-      [ngClass]="selectedItem === toolbarItem.id ? 'selected' : ''"
+      [ngClass]="{
+        selected: selectedItem === toolbarItem.id,
+        disabled: disabled
+      }"
       [routerLink]="['/category/' + toolbarItem.id]"
     >
       {{ toolbarItem.name }}

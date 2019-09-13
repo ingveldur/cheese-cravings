@@ -3,6 +3,7 @@
     <app-category-toolbar
       [toolbarItems]="toolbarItems"
       [selectedItem]="categoryId"
+      [disabled]="filtersOpen"
     ></app-category-toolbar>
     <app-breadcrumbs
       [sortByOptions]="sortByOptions"
@@ -78,7 +79,9 @@
                 "
               >
                 <div class="col">
-                  <div class="product" (click)="goToProduct(product)">
+                  <div class="product" (click)="goToProduct(product)" [ngClass]="{
+                    disabled: filtersOpen
+                  }">
                     <div
                       class="product-image"
                       [ngStyle]="{
@@ -113,14 +116,13 @@
         </ng-template>
       </div>
 
-      <!-- set height to something-->
       <div class="category-content-bottom-filters">
+        <div class="category-content-bottom-filters-close">
+          <a href="javascript:void(0)" (click)="closeFilters()">&times;</a>
+        </div>
         <div class="category-content-bottom-filters-title">
           Filters
         </div>
-
-        <!-- --->
-
         <div
           class="category-content-bottom-filters-filter"
           *ngIf="category.id !== 'all-products'"
@@ -129,7 +131,7 @@
           <div>
             <ul *ngIf="categories.length > 0">
               <div *ngFor="let category of categories">
-                <li (click)="filterByCategory(category.id)">
+                <li (click)="closeFilters(); filterByCategory(category.id)">
                   <span
                     [ngClass]="
                       category.id === categoryFilter ? 'selectedFilter' : ''
@@ -139,6 +141,23 @@
                 </li>
               </div>
             </ul>
+          </div>
+        </div>
+
+        <div class="category-content-bottom-filters-filter">
+          <div class="category-content-bottom-filters-filter-title">
+            Sort by
+          </div>
+          <div class="category-content-bottom-filters-filter-sortby">
+            <select
+              [(ngModel)]="sortByFilter"
+              ngControl="sortByFilter"
+              name="sortByFilter"
+            >
+              <option [value]="o.value" *ngFor="let o of sortByOptions">
+                {{ o.name }}
+              </option>
+            </select>
           </div>
         </div>
 
@@ -157,8 +176,6 @@
             ></ng5-slider>
           </div>
         </div>
-
-        <!-- --->
       </div>
     </div>
   </div>

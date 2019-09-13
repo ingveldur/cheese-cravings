@@ -24,6 +24,11 @@
       color: black;
     }
 
+    a.disabled {
+      pointer-events: none;
+      cursor: default;
+    }
+
     .selected {
       font-weight: 700;
     }

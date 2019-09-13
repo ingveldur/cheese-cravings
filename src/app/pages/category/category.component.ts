@@ -19,6 +19,12 @@ export class CategoryComponent implements OnInit {
   public productsInCategory: Product[] = [];
   public toolbarItems: any[] = [{ id: "all-products", name: "All products" }];
   public filtersOpen = false;
+
+  // @Output() sortByFilterChange: EventEmitter<string> = new EventEmitter<
+  //   string
+  // >();
+  // @Input() sortByOptions: any[];
+
   // Filters
   public categoryFilter = "";
   public sortByFilter = "price,asc";
@@ -109,7 +115,7 @@ export class CategoryComponent implements OnInit {
     this.filtersOpen = true;
     (document.querySelector(
       ".category-content-bottom-filters"
-    ) as HTMLElement).style.height = "400px";
+    ) as HTMLElement).style.height = "500px";
   }
 
   closeFilters() {
