@@ -25,18 +25,50 @@
 
       @include mobile {
         width: 100%;
+        display: flex;
+        justify-content: space-between;
       }
 
-      &-category-name {
-        font-family: "Montserrat", sans-serif;
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 22px;
-        margin: 6px 24px 0;
+      &-category {
+        &-name {
+          font-family: "Montserrat", sans-serif;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 22px;
+          margin: 6px 24px 0;
 
-        @include mobile {
-          font-size: 11px;
-          line-height: 13px;
+          @include mobile {
+            font-size: 11px;
+            line-height: 13px;
+          }
+        }
+
+        &-filters {
+          display: none;
+
+          button {
+            box-shadow: 0px 3.59074px 3.59074px rgba(0, 0, 0, 0.25);
+            border-radius: 5.38611px;
+            border: none;
+            font-family: "Lato", sans-serif;
+            font-weight: 500;
+            font-size: 8px;
+            line-height: 10px;
+            text-transform: uppercase;
+            padding: 4px 12px 4px 16px;
+            display: flex;
+            outline: none;
+            cursor: pointer;
+            background-color: Transparent;
+
+            img {
+              width: 11px;
+            }
+          }
+          @include mobile {
+            display: block;
+            margin: 6px 24px 0;
+          }
         }
       }
 
@@ -76,6 +108,7 @@
       &-list {
         ul {
           padding-inline-start: 16px;
+
           li {
             font-family: "Lato", sans-serif;
             font-style: normal;
@@ -103,6 +136,10 @@
       width: 100%;
       margin: 16px;
 
+      @include mobile {
+        margin: 0;
+      }
+
       .row {
         display: flex;
         flex-direction: row;
@@ -111,6 +148,7 @@
         margin: auto;
 
         @include smallerThanDesktop {
+          margin-top: 30px;
           display: block;
         }
 
@@ -126,8 +164,10 @@
             border-radius: 6px;
             cursor: pointer;
 
-            @include smallerThanDesktop {
+            @include mobile {
               margin: auto;
+              width: 90%;
+              height: fit-content;
             }
 
             &-image {
@@ -139,19 +179,86 @@
               background-size: cover;
               margin-bottom: 3px;
 
-              @include smallerThanDesktop {
-                max-height: 300px;
-                max-width: 300px;
+              @include mobile {
+                height: 250px;
+                width: 300px;
+                margin: auto;
+                max-width: 100%;
               }
             }
 
             &-title {
               font-size: 11px;
+              @include mobile {
+                margin: 8px 0;
+                font-size: 14px;
+              }
             }
 
             &-price {
               font-size: 14px;
               font-weight: 600;
+
+              @include mobile {
+                margin: 8px 0;
+              }
+            }
+          }
+        }
+      }
+    }
+    &-bottom-filters {
+      display: block;
+      position: fixed;
+      width: 100%;
+      height: 0;
+      bottom: 0;
+      background: white;
+      transition: 0.5s;
+      border-radius: 10px 10px 0 0;
+      z-index: 3;
+
+      @include mobile {
+        max-height: 50%;
+      }
+
+      &-title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        text-decoration-line: underline;
+        margin: 34px auto 0;
+        width: fit-content;
+      }
+
+      &-filter {
+        &-title {
+          font-weight: 500;
+          font-size: 17.5932px;
+          line-height: 21px;
+          text-decoration-line: underline;
+          margin: 32px auto 0 46px;
+          width: fit-content;
+        }
+
+        ul {
+          padding-inline-start: 60px;
+          margin: 18px 0;
+
+          li {
+            font-family: "Lato", sans-serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 16.1271px;
+            line-height: 19px;
+            margin-bottom: 12px;
+            list-style-type: none;
+            cursor: pointer;
+
+            .selectedFilter {
+              font-weight: 500;
+              color: $color-yellow-darker;
             }
           }
         }
@@ -185,4 +292,16 @@
   .category-content-filters-price-slider .ng5-slider .ng5-slider-bubble {
     font-size: 8px;
   }
+}
+
+.backdrop {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
 }

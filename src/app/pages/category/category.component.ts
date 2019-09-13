@@ -18,7 +18,7 @@ export class CategoryComponent implements OnInit {
   public categories: any = [];
   public productsInCategory: Product[] = [];
   public toolbarItems: any[] = [{ id: "all-products", name: "All products" }];
-
+  public filtersOpen = false;
   // Filters
   public categoryFilter = "";
   public sortByFilter = "price,asc";
@@ -103,5 +103,19 @@ export class CategoryComponent implements OnInit {
     this.router.navigate([this.router.url, product.id], {
       state: { product }
     });
+  }
+
+  openFilters() {
+    this.filtersOpen = true;
+    (document.querySelector(
+      ".category-content-bottom-filters"
+    ) as HTMLElement).style.height = "400px";
+  }
+
+  closeFilters() {
+    this.filtersOpen = false;
+    (document.querySelector(
+      ".category-content-bottom-filters"
+    ) as HTMLElement).style.height = "0";
   }
 }

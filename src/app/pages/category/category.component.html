@@ -1,108 +1,165 @@
-<div class="category">
-  <app-category-toolbar
-    [toolbarItems]="toolbarItems"
-    [selectedItem]="categoryId"
-  ></app-category-toolbar>
-  <app-breadcrumbs
-    [sortByOptions]="sortByOptions"
-    [(sortByFilter)]="sortByFilter"
-    [pageName]="category.name"
-  ></app-breadcrumbs>
-  <div class="category-content">
-    <div class="category-content-filters">
-      <div class="category-content-filters-category-name">
-        {{ category.name }}.
-      </div>
-      <div class="category-content-filters-title">
-        Filters
-        <img src="../assets/images/filter.svg" />
-      </div>
-      <div
-        *ngIf="category.id !== 'all-products'"
-        class="category-content-filters-filter"
-      >
-        <div class="category-content-filters-filter-title">Types</div>
-        <div class="category-content-filters-list">
-          <ul *ngIf="categories.length > 0">
-            <div *ngFor="let category of categories">
-              <li (click)="filterByCategory(category.id)">
-                <span
-                  [ngClass]="
-                    category.id === categoryFilter ? 'selectedFilter' : ''
-                  "
-                  >{{ category.title }}</span
-                >
-              </li>
-            </div>
-          </ul>
+<div [ngClass]="filtersOpen ? 'backdrop' : ''">
+  <div class="category">
+    <app-category-toolbar
+      [toolbarItems]="toolbarItems"
+      [selectedItem]="categoryId"
+    ></app-category-toolbar>
+    <app-breadcrumbs
+      [sortByOptions]="sortByOptions"
+      [(sortByFilter)]="sortByFilter"
+      [pageName]="category.name"
+    ></app-breadcrumbs>
+    <div class="category-content">
+      <div class="category-content-filters">
+        <div class="category-content-filters-category-name">
+          {{ category.name }}.
         </div>
-      </div>
-      <div class="category-content-filters-filter">
-        <div class="category-content-filters-filter-title">Price range</div>
-        <div class="category-content-filters-price-slider">
-          <ng5-slider
-            [(value)]="minValue"
-            [(highValue)]="maxValue"
-            [options]="options"
-          ></ng5-slider>
+        <div class="category-content-filters-category-filters">
+          <button (click)="openFilters()">
+            Filters
+            <img src="../assets/images/down-arrow.svg" />
+          </button>
         </div>
-      </div>
-    </div>
-
-    <div class="category-content-products">
-      <ng-container *ngIf="!loading; else loadingBlock">
-        <ng-container
-          *ngIf="
-            (
-              productsInCategory
-              | filterByCategory: categoryFilter
-              | filterByPriceRange: minValue:maxValue
-            ).length > 0;
-            else noProductsBlock
-          "
+        <div class="category-content-filters-title">
+          Filters
+          <img src="../assets/images/filter.svg" />
+        </div>
+        <div
+          *ngIf="category.id !== 'all-products'"
+          class="category-content-filters-filter"
         >
-          <div class="row">
-            <div
-              *ngFor="
-                let product of productsInCategory
-                  | filterByCategory: categoryFilter
-                  | filterByPriceRange: minValue:maxValue
-                  | sortBy: sortByFilter
-              "
-            >
-              <div class="col">
-                <div class="product" (click)="goToProduct(product)">
-                  <div
-                    class="product-image"
-                    [ngStyle]="{
-                      'background-image': 'url(' + product.image + ')'
-                    }"
-                  ></div>
-                  <div>
-                    <div class="product-title">
-                      {{ product.name }}
-                    </div>
-                    <div class="product-price">
-                      {{ product.price }}
-                      {{ product.currency }}
+          <div class="category-content-filters-filter-title">Types</div>
+          <div class="category-content-filters-list">
+            <ul *ngIf="categories.length > 0">
+              <div *ngFor="let category of categories">
+                <li (click)="filterByCategory(category.id)">
+                  <span
+                    [ngClass]="
+                      category.id === categoryFilter ? 'selectedFilter' : ''
+                    "
+                    >{{ category.title }}</span
+                  >
+                </li>
+              </div>
+            </ul>
+          </div>
+        </div>
+        <div class="category-content-filters-filter">
+          <div class="category-content-filters-filter-title">Price range</div>
+          <div class="category-content-filters-price-slider">
+            <ng5-slider
+              [(value)]="minValue"
+              [(highValue)]="maxValue"
+              [options]="options"
+            ></ng5-slider>
+          </div>
+        </div>
+      </div>
+
+      <div class="category-content-products">
+        <ng-container *ngIf="!loading; else loadingBlock">
+          <ng-container
+            *ngIf="
+              (
+                productsInCategory
+                | filterByCategory: categoryFilter
+                | filterByPriceRange: minValue:maxValue
+              ).length > 0;
+              else noProductsBlock
+            "
+          >
+            <div class="row">
+              <div
+                *ngFor="
+                  let product of productsInCategory
+                    | filterByCategory: categoryFilter
+                    | filterByPriceRange: minValue:maxValue
+                    | sortBy: sortByFilter
+                "
+              >
+                <div class="col">
+                  <div class="product" (click)="goToProduct(product)">
+                    <div
+                      class="product-image"
+                      [ngStyle]="{
+                        'background-image': 'url(' + product.image + ')',
+                        filter: filtersOpen ? 'brightness(50%)' : 'none'
+                      }"
+                    ></div>
+                    <div>
+                      <div class="product-title">
+                        {{ product.name }}
+                      </div>
+                      <div class="product-price">
+                        {{ product.price }}
+                        {{ product.currency }}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ng-container>
         </ng-container>
-      </ng-container>
-      <ng-template #loadingBlock>
-        <div>
-          Loading products...
+        <ng-template #loadingBlock>
+          <div>
+            Loading products...
+          </div>
+        </ng-template>
+        <ng-template #noProductsBlock>
+          <div>
+            No products found with this criteria.
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- set height to something-->
+      <div class="category-content-bottom-filters">
+        <div class="category-content-bottom-filters-title">
+          Filters
         </div>
-      </ng-template>
-      <ng-template #noProductsBlock>
-        <div>
-          No products found with this criteria.
+
+        <!-- --->
+
+        <div
+          class="category-content-bottom-filters-filter"
+          *ngIf="category.id !== 'all-products'"
+        >
+          <div class="category-content-bottom-filters-filter-title">Types</div>
+          <div>
+            <ul *ngIf="categories.length > 0">
+              <div *ngFor="let category of categories">
+                <li (click)="filterByCategory(category.id)">
+                  <span
+                    [ngClass]="
+                      category.id === categoryFilter ? 'selectedFilter' : ''
+                    "
+                    >{{ category.title }}</span
+                  >
+                </li>
+              </div>
+            </ul>
+          </div>
         </div>
-      </ng-template>
+
+        <div class="category-content-bottom-filters-filter">
+          <div class="category-content-bottom-filters-filter-title">
+            Price range
+          </div>
+          <div
+            class="category-content-filters-price-slider"
+            style="margin: 18px 60px;"
+          >
+            <ng5-slider
+              [(value)]="minValue"
+              [(highValue)]="maxValue"
+              [options]="options"
+            ></ng5-slider>
+          </div>
+        </div>
+
+        <!-- --->
+      </div>
     </div>
   </div>
 </div>
