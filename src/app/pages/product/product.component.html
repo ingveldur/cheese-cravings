@@ -1,53 +1,55 @@
 <ng-container *ngIf="!loading; else loadingBlock">
-  <i>
-    <img [src]="product.image" />
-  </i>
-  <div class="back-button">
-    <img src="../../../assets/images/back-arrow.svg" />
-    <a [routerLink]="['/category/' + previousRoute]">
-      Back
-    </a>
-  </div>
-  <div class="product">
-    <div class="product-info">
-      <div class="product-info-cheese-type">
-        {{ product.cheeseType }}
-      </div>
-      <div class="product-info-name">
-        {{ product.name }}
-      </div>
-      <div class="product-info-description">
-        {{ product.description }}
-      </div>
-      <div class="product-info-strength">
-        Medium strength
-      </div>
-      <div class="product-info-price">
-        {{ product.price }} {{ product.currency }} <span>/ pound</span>
-      </div>
-      <div class="product-info-quantity">
-        <button [disabled]="quantity === 0" (click)="updateQuantity(-1)">
-          -
-        </button>
-        <span>{{ quantity }}</span>
-        <button (click)="updateQuantity(1)">+</button>
-      </div>
+  <div class="foo">
+    <i>
+      <img [src]="product.image" />
+    </i>
+    <div class="back-button">
+      <img src="../../../assets/images/back-arrow.svg" />
+      <a [routerLink]="['/category/' + previousRoute]">
+        Back
+      </a>
+    </div>
+    <div class="product">
+      <div class="product-info">
+        <div class="product-info-cheese-type">
+          {{ product.cheeseType }}
+        </div>
+        <div class="product-info-name">
+          {{ product.name }}
+        </div>
+        <div class="product-info-description">
+          {{ product.description }}
+        </div>
+        <div class="product-info-strength">
+          Medium strength
+        </div>
+        <div class="product-info-price">
+          {{ product.price }} {{ product.currency }} <span>/ pound</span>
+        </div>
+        <div class="product-info-quantity">
+          <button [disabled]="quantity === 0" (click)="updateQuantity(-1)">
+            -
+          </button>
+          <span>{{ quantity }}</span>
+          <button (click)="updateQuantity(1)">+</button>
+        </div>
 
-      <div class="product-info-buttons">
-        <button
-          data-autopop="false"
-          [disabled]="quantity === 0"
-          class="product-info-buttons-add snipcart-add-item"
-          [attr.data-item-url]="product.url"
-          [attr.data-item-id]="product.id"
-          [attr.data-item-price]="product.price"
-          [attr.data-item-description]="product.description"
-          [attr.data-item-image]="product.image"
-          [attr.data-item-name]="product.name"
-          [attr.data-item-quantity]="quantity"
-        >
-          Add to cart
-        </button>
+        <div class="product-info-buttons">
+          <button
+            data-autopop="false"
+            [disabled]="quantity === 0"
+            class="product-info-buttons-add snipcart-add-item"
+            [attr.data-item-url]="product.url"
+            [attr.data-item-id]="product.id"
+            [attr.data-item-price]="product.price"
+            [attr.data-item-description]="product.description"
+            [attr.data-item-image]="product.image"
+            [attr.data-item-name]="product.name"
+            [attr.data-item-quantity]="quantity"
+          >
+            Add to cart
+          </button>
+        </div>
       </div>
     </div>
   </div>
